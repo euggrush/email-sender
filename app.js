@@ -26,11 +26,11 @@ const transporter = nodemailer.createTransport({
         pass: AUTH_PASSWORD_CREDENTIALS
     }
 });
-app.get('/send-email', (req, res) => {
+app.get('/', (req, res) => {
     res.send('This is email-sender!')
 });
 
-app.post('/send-email', (req, res) => {
+app.post('/', (req, res) => {
     const {
         email,
         name,
