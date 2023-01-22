@@ -1,6 +1,15 @@
+"use strict";
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+const PORT = process.env.PORT;
+const SMTP_SERVER_INFO = process.env.SMTP_SERVER;
+const AUTH_EMAIL_CREDENTIALS = process.env.AUTH_EMAIL;
+const AUTH_PASSWORD_CREDENTIALS = process.env.AUTH_PASSWORD;
+const SMTP_SSL_PORT = process.env.SSL_PORT;
 
 const app = express();
 app.use(bodyParser.json());
@@ -9,12 +18,12 @@ app.use(bodyParser.urlencoded({
 }));
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.example.com',
-    port: 587,
-    secure: false,
+    host: SMTP_SERVER_INFO,
+    port: SMTP_SSL_PORT,
+    secure: true,
     auth: {
-        user: 'your-email-address',
-        pass: 'your-email-password'
+        user: AUTH_EMAIL_CREDENTIALS,
+        pass: AUTH_PASSWORD_CREDENTIALS
     }
 });
 
@@ -26,8 +35,8 @@ app.post('/send-email', (req, res) => {
     } = req.body;
 
     const mailOptions = {
-        from: '"Your Name" <your-email-address>',
-        to: 'recipient@example.com',
+        from: `${name} ${email}`,
+        to: AUTH_EMAIL_CREDENTIALS,
         subject: 'New message from contact form',
         text: `From: ${name} (${email})\n\n${message}`
     };
@@ -47,6 +56,6 @@ app.post('/send-email', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
