@@ -3,6 +3,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const cors = require('cors');
+
 require('dotenv').config();
 
 const PORT = process.env.PORT;
@@ -26,6 +28,9 @@ const transporter = nodemailer.createTransport({
         pass: AUTH_PASSWORD_CREDENTIALS
     }
 });
+
+app.use(cors());
+
 app.get('/', (req, res) => {
     res.send('This is email-sender!')
 });
