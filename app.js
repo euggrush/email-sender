@@ -29,9 +29,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-app.use(cors({
-    origin: true
-}));
+app.use(cors());
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -45,11 +43,11 @@ app.options('/', function (req, res) {
     res.end();
 });
 
-app.get('/', (req, res) => {
+app.get('/email-sender', (req, res) => {
     res.send('This is email-sender!')
 });
 
-app.post('/', (req, res) => {
+app.post('/email-sender', (req, res) => {
     const {
         email,
         name,
