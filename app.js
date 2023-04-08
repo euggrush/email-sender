@@ -7,7 +7,7 @@ const cors = require('cors');
 
 require('dotenv').config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const SMTP_SERVER_INFO = process.env.SMTP_SERVER;
 const AUTH_EMAIL_CREDENTIALS = process.env.AUTH_EMAIL;
 const AUTH_PASSWORD_CREDENTIALS = process.env.AUTH_PASSWORD;
